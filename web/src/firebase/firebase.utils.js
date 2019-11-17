@@ -4,7 +4,7 @@ import { Items, STORES } from "../data/dummy";
 const _ = require("lodash");
 
 const config = {
-  apiKey: "AIzaSyAs2Vsdk2pJnXDAEIB_SFF6HMFLqcm3ldQ",
+  apiKey: process.env.FIREBASE_API,
   authDomain: "junction-a588b.firebaseapp.com",
   databaseURL: "https://junction-a588b.firebaseio.com",
   projectId: "junction-a588b",
