@@ -18,7 +18,7 @@ const BasketListItem = ({ item, actions, onLike, onDislike, onReceipt }) => {
                     onClick={() => onLike(item)}
                   />
                 </Tooltip>
-                <span style={{ paddingLeft: 8, cursor: "auto" }}>likes</span>
+                <span style={{ paddingLeft: 8, cursor: "auto" }}>like</span>
               </span>,
               <span
                 className="actionButton"
@@ -31,7 +31,7 @@ const BasketListItem = ({ item, actions, onLike, onDislike, onReceipt }) => {
                     // theme={action === "disliked" ? "filled" : "outlined"}
                   />
                 </Tooltip>
-                <span style={{ paddingLeft: 8, cursor: "auto" }}>dislikes</span>
+                <span style={{ paddingLeft: 8, cursor: "auto" }}>dislike</span>
               </span>,
               <span key=' key="comment-basic-receipt"' className="actionButton">
                 <Tooltip title="Receipt">
@@ -60,14 +60,12 @@ const BasketListItem = ({ item, actions, onLike, onDislike, onReceipt }) => {
       content={<h3>{item.price}€</h3>}
       datetime={
         <Tooltip
-          title={moment
-            .unix(item.timestamp)
+          title={moment(item.timestamp)
             .subtract(2, "days")
             .format("YYYY-MM-DD HH:mm:ss")}
         >
           <span>
-            {moment
-              .unix(item.timestamp)
+            {moment(item.timestamp)
               .subtract(2, "days")
               .fromNow()}
           </span>

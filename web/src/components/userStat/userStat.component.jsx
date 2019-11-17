@@ -4,14 +4,18 @@ import {
   firestore,
   convertBasketSnapshotToArray
 } from "../../firebase/firebase.utils";
+const _ = require("lodash");
+
 const UserData = () => {
   const [baskets, setBaskets] = useState([]);
   const [stat, setStat] = useState({ sum: 0, karma: 0, lastKarma: 0 });
 
   const generateStat = baskets => {
     var sum = baskets.reduce((total, basket) => total + basket.price, 0);
+
     var karma = baskets.reduce((total, basket) => total + basket.karma, 0);
-    var lastKarma = (baskets[0] || { karma: 0 }).karma;
+    const sortedBaskets = _.orderBy(baskets, "timestamp", "desc");
+    var lastKarma = _.first(sortedBaskets).karma || 0;
     setStat({ sum, karma, lastKarma });
     setBaskets(baskets);
   };
@@ -30,7 +34,7 @@ const UserData = () => {
       <Row type="flex" justify="center" gutter={16}>
         <Col span={7}>
           <Card>
-            <Statistic title="Spent" value={stat.sum} />
+            <Statistic title="Spent" value={200} />
           </Card>
         </Col>
         <Col span={7}>
@@ -41,14 +45,13 @@ const UserData = () => {
         <Col span={7}>
           <Card>
             <Statistic
-              title="Karma Points given"
+              title="Last basket points"
               value={stat.lastKarma}
               precision={2}
               valueStyle={{ color: stat.lastKarma < 0 ? "red" : "green" }}
               prefix={
                 <Icon type={stat.lastKarma < 0 ? "arrow-down" : "arrow-up"} />
               }
-              suffix="%"
             />
           </Card>
         </Col>

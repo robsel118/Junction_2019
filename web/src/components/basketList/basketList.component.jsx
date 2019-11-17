@@ -3,7 +3,6 @@ import { List, Modal, Descriptions } from "antd";
 import { firestore, getTopBasket } from "../../firebase/firebase.utils";
 import BasketListItem from "../basketListItem/basketListItem.component";
 import moment from "moment";
-import { voteGenerator } from "../../firebase/firebase.utils";
 import "./basketList.styles.sass";
 
 const BasketList = ({ tab }) => {
@@ -13,11 +12,10 @@ const BasketList = ({ tab }) => {
 
   useEffect(() => {
     const basketsRef = firestore.collection("baskets");
-    basketsRef
-      .where("user", "==", "AYD1wNUgj31szhrVr1At")
-      .onSnapshot(function(querySnapshot) {
-        setBaskets(getTopBasket(querySnapshot, tab));
-      });
+    const unsub = basketsRef.onSnapshot(function(querySnapshot) {
+      setBaskets(getTopBasket(querySnapshot, tab));
+    });
+    return () => unsub();
   }, [tab]);
 
   const onReceipt = item => {
@@ -54,12 +52,11 @@ const BasketList = ({ tab }) => {
             size="small"
           >
             <Descriptions.Item label="Purchase Date">
-              {moment.unix(modalItem.timestamp).format("YYYY-MM-DD HH:mm:ss")}}
+              {moment(modalItem.timestamp).format("YYYY-MM-DD HH:mm:ss")}}
             </Descriptions.Item>
             <Descriptions.Item label="Store">
               {modalItem.store}
             </Descriptions.Item>
-            <Descriptions.Item label="User">{modalItem.user}</Descriptions.Item>
             <Descriptions.Item label="Total Price">
               {modalItem.price}
             </Descriptions.Item>

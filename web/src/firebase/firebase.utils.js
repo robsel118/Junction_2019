@@ -1,6 +1,5 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
-import axios from "axios";
 import { Items, STORES } from "../data/dummy";
 const _ = require("lodash");
 
@@ -73,10 +72,10 @@ export const convertBasketSnapshotToArray = snapshot => {
 
 export const getTopBasket = (snapshot, tab) => {
   const baskets = convertBasketSnapshotToArray(snapshot);
-  const sorted =
-    tab === 1
-      ? baskets.sort((a, b) => a.karma < b.karma)
-      : baskets.sort((a, b) => a.karma > b.karma);
+  var sorted = baskets.sort((a, b) => a.karma < b.karma);
+  if (tab === 2) {
+    sorted = sorted.reverse();
+  }
 
   return _.take(sorted, 10);
 };
@@ -87,8 +86,7 @@ export const voteGenerator = baskets => {
   const top = _.union(highest, lowest);
 
   setInterval(function() {
-    console.log("voting");
-    generateLikeOrDislike(highest);
+    generateLikeOrDislike(top);
   }, 2000);
 };
 
@@ -96,9 +94,9 @@ export const generateLikeOrDislike = baskets => {
   const random = _.random(0, baskets.length - 1);
   const basket = baskets[random];
   const randomLike = _.random(-10, 10);
-  console.log(
-    `${basket.id} with old socre ${basket.karma} now changed by ${randomLike}`
-  );
+  // console.log(
+  //   `${basket.id} with old socre ${basket.karma} now changed by ${randomLike}`
+  // );
   firestore
     .collection("baskets")
     .doc(basket.id)

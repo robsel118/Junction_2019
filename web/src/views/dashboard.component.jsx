@@ -23,12 +23,15 @@ const Dashboard = () => {
           title="Weekly Leaderboard"
           footer={
             <Tabs defaultActiveKey="1" onChange={callback}>
-              <TabPane tab="Wall of Fame" key="1" />
-              <TabPane tab="Wall of Shame" key="2" />
+              <TabPane tab="Wall of Fame" key="1">
+                <BasketList tab={1} />
+              </TabPane>
+              <TabPane tab="Wall of Shame" key="2">
+                <BasketList tab={2} />
+              </TabPane>
             </Tabs>
           }
         />
-        <BasketList tab={tab} />
       </Col>
     </Row>
   );
