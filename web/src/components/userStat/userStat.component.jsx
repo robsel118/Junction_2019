@@ -71,11 +71,11 @@ const UserData = () => {
         </Col>
         <Col span={7}>
           <Card>
-            <h2>IT'S RAW?</h2>
-            <h4>Buy lamb sauce</h4>
+            <h2>Earth Lover</h2>
+            <h4>Buy 10 local produce</h4>
             <Progress type="circle" percent={100} />
             <div style={{ color: "#52c41a" }}>
-              <Icon theme="twoTone" twoToneColor="#52c41a" type="unlock" /> 5
+              <Icon theme="twoTone" twoToneColor="#52c41a" type="unlock" /> 1
               trees planted
             </div>
           </Card>

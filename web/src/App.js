@@ -8,9 +8,9 @@ function App() {
   // for (var i = 0; i < 20; i++) {
   //   generateNewBasket();
   // }
-  setInterval(function() {
-    generateNewBasket();
-  }, 5000);
+  // setInterval(function() {
+  //   generateNewBasket();
+  // }, 5000);
   return (
     <div className="App">
       <Dashboard />

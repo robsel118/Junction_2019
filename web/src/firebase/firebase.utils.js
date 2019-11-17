@@ -86,7 +86,7 @@ export const voteGenerator = baskets => {
   const top = _.union(highest, lowest);
 
   setInterval(function() {
-    generateLikeOrDislike(top);
+    // generateLikeOrDislike(top);
   }, 2000);
 };
 
